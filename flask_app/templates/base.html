@@ -7,10 +7,12 @@
         {%endif%}
 
     </head>
-
     <body>
-        <h1>Greetings</h1>
-        <h1>Hello {{user.username}}</h1>
+        <div>Microblog:
+             <a href="/index">Home</a>
+             <a href="/login">Login</a>
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
     </body>
-
 </html>
