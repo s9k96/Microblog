@@ -8,14 +8,11 @@ def index():
     user = {
         'username':'thomas the tank engine!!!'
     }
-
     return render_template('index.html', title='Home', user=user)
-
 
 @app.route('/login')
 def login():
     form=LoginForm()
-
     return render_template('login.html', title='sign in', form=form)
 
 @app.route('/projects')
