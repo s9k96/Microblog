@@ -1,18 +1,33 @@
-<html>
-    <head>
-        {%if title%}
-        <title>{{title}}-Microblog</title>
-        {%else%}
-        <title>Welcome to Microblog</title>
-        {%endif%}
+{% extends 'bootstrap/base.html' %}
 
-    </head>
-    <body>
+{% block title %}
+    {% if title %}{{ title }} - Microblog{% else %}Welcome to Microblog{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
         <div>Microblog:
-             <a href="/index">Home</a>
-             <a href="/login">Login</a>
+            <ui><a href="/index">Home</a></ui>
+            <ui><a href="/login">Login</a></ui>
+            <ui><a href="/projects">Projects</a></ui>
+
         </div>
-        <hr>
-        {% block content %}{% endblock %}
-    </body>
-</html>
+
+
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
