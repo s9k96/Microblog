@@ -1,5 +1,7 @@
 env/
 flask_app/__pycache__/
 .vscode/
-
+__pycache__/
+env/
+blog-workspace.code-workspace
 
