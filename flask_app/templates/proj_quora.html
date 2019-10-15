@@ -4,5 +4,14 @@
 
     <h1>&lt Quora Question-Pairs Similarity &gt</h1>
     <hr>
-    
+    <form role='form' method='POST', action='/proj_quora'>
+        <div class='form-group'>
+            <input type="text" name="text" class="form-control" id="url-box" placeholder="Enter Text..." style="max-width: 300px;">
+             <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </form>
+
+    <div>
+    {{ results }}
+    </div>
 {% endblock %}

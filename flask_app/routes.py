@@ -1,6 +1,12 @@
 from flask_app import app
 from flask import render_template, request
 from flask_app.forms import LoginForm
+import pickle
+static = '/home/shubham/projs/shubham/microblog/flask_app/static/'
+
+stack_vec = pickle.load(open(static+'pickles/stack/vectorizer.pkl', 'rb'))
+stack_model = pickle.load(open(static+'pickles/stack/model.pkl', 'rb'))
+
 
 @app.route('/')
 @app.route('/index')
@@ -21,14 +27,23 @@ def projects():
 
 @app.route('/proj_quora',  methods=['GET', 'POST'])
 def proj_quora():
-    text = 'yooooo'
-    return render_template('proj_quora.html', title='Quora Similarity', results=text)
+    if request.method=='POST':
+        text = request.values.get('text')
+        if text:
+            return render_template('proj_quora.html', title='Quora Similarity', results=text)
+    else:
+        return render_template('proj_quora.html', title='Quora Similarity')
 
 @app.route('/proj_stackoverflow', methods=['GET', 'POST'])
 def proj_stackoverflow():
     if request.method=='POST':
         text = request.values.get('text')
         if text:
-            return render_template('proj_stackoverflow.html', title = 'Tag Prediction', results= text)
+            # vectorizer = pickle.load(open('static/vectorizer.pkl', 'rb'))
+            vector = stack_vec.transform([text])
+            result = stack_model.predict(vector)
+            prob = stack_model.predict_proba(vector)
+
+            return render_template('proj_stackoverflow.html', title = 'Tag Prediction', results= result, probability=prob*100)
     else:
         return render_template('proj_stackoverflow.html', title = 'Tag Prediction')
