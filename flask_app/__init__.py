@@ -4,8 +4,8 @@ app = Flask(__name__,
             static_url_path='',
             static_folder='static/')
 
-from flask_app import routes
 
+from flask_app import routes
 
 app.config['SECRET_KEY']='averynicekey'
 app.jinja_env.auto_reload=True
